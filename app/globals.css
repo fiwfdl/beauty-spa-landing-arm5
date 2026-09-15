@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Layer 1 — primitives (arm5 signature: eucalyptus + clay on warm ivory) */
+:root {
+  --grove-primary: 162 28% 32%;
+  --grove-primary-ink: 0 0% 100%;
+  --grove-secondary: 90 22% 84%;
+  --grove-secondary-ink: 150 30% 18%;
+  --grove-accent: 18 52% 52%;
+  --grove-accent-ink: 0 0% 100%;
+  --grove-page: 45 38% 96%;
+  --grove-ink: 155 26% 20%;
+  --grove-card: 0 0% 100%;
+  --grove-quiet: 60 18% 92%;
+  --grove-quiet-ink: 60 8% 32%;
+  --grove-hairline: 80 18% 84%;
+  --grove-danger: 0 72% 51%;
+}
+
+/* Layer 2 — semantic (shadcn CSS variables) */
+:root {
+  --background: var(--grove-page);
+  --foreground: var(--grove-ink);
+  --card: var(--grove-card);
+  --card-foreground: var(--grove-ink);
+  --primary: var(--grove-primary);
+  --primary-foreground: var(--grove-primary-ink);
+  --secondary: var(--grove-secondary);
+  --secondary-foreground: var(--grove-secondary-ink);
+  --accent: var(--grove-accent);
+  --accent-foreground: var(--grove-accent-ink);
+  --muted: var(--grove-quiet);
+  --muted-foreground: var(--grove-quiet-ink);
+  --border: var(--grove-hairline);
+  --input: var(--grove-hairline);
+  --ring: var(--grove-primary);
+  --destructive: var(--grove-danger);
+  --destructive-foreground: 0 0% 100%;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+  h1, h2, h3, blockquote { @apply font-display; }
+  :focus-visible { @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+@layer components {
+  .eyebrow { @apply font-sans text-xs font-semibold uppercase tracking-[0.2em] text-primary; }
+  .card-soft { @apply rounded-2xl border bg-card text-card-foreground shadow-[0_18px_45px_-28px_hsl(var(--foreground)/0.35)]; }
+  .btn-lift { @apply transition-transform duration-200 hover:-translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none; }
+  .drift { animation: drift 14s ease-in-out infinite alternate; }
+  @media (prefers-reduced-motion: reduce) { .drift { animation: none; } }
+  @keyframes drift { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+}
